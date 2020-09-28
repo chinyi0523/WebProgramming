@@ -1,4 +1,4 @@
-var img_urls = ['https://tinyurl.com/y46trfov','https://tinyurl.com/y4l3euxx','https://tinyurl.com/y2f7vd8s','https://tinyurl.com/y3xpy5gm','https://tinyurl.com/y4n2eglo','https://tinyurl.com/y3ulbdqw','https://tinyurl.com/y525hqgy','https://tinyurl.com/y3xtzn8n','https://tinyurl.com/y2k7krk8','https://tinyurl.com/yyo8r7lg']
+var img_urls = ['https://i.imgur.com/bszWLbR.jpg','https://i.imgur.com/VQXYMbc.jpg','https://i.imgur.com/XiX3p0l.jpg','https://tinyurl.com/y46trfov','https://tinyurl.com/y4l3euxx','https://tinyurl.com/y2f7vd8s','https://tinyurl.com/y3xpy5gm','https://tinyurl.com/y4n2eglo','https://tinyurl.com/y3ulbdqw','https://tinyurl.com/y525hqgy','https://tinyurl.com/y3xtzn8n','https://tinyurl.com/y2k7krk8','https://tinyurl.com/yyo8r7lg']
 var cnt = 0
 
 let loading = new Image();
@@ -21,6 +21,7 @@ function load(cnt){
 }
 
 function select(nxt){
+    
     if(nxt===true){
         if(cnt!==(img_urls.length-1)){
             cnt+=1
@@ -33,6 +34,9 @@ function select(nxt){
             else{
                 document.getElementById("nextImg").classList.remove("disabled");
             }
+        }
+        else{
+            alert("Join NTUEE+ for a memoriable university life!")
         }
     }
     else{
@@ -47,6 +51,9 @@ function select(nxt){
             else{
                 document.getElementById("prevImg").classList.remove("disabled");
             }
+        }
+        else{
+            alert("Join NTUEE+ for a memoriable university life!")
         }
     }
 }
