@@ -21,7 +21,7 @@ class section extends React.Component {
         this.state = {
             id:0,
             todoListData:[],
-            filter:"default"
+            filter:"All"
         }
     }
     handleInc = () => this.setState(state => ({ id: state.id + 1 }))
@@ -37,7 +37,6 @@ class section extends React.Component {
             todoListData: [...state.todoListData,{
                 "id":this.state.id,
                 "isCompleted":false,
-                "display":true,
                 "name":name,
             }]
         }))
@@ -62,30 +61,18 @@ class section extends React.Component {
         )
     }
     handleAll = () =>{
-        let Data = [...this.state.todoListData];
-        for (let d of Data){
-            d["display"] = true;
-        }
         this.setState(
-            () =>({todoListData: Data})
+            () =>({ filter: "All" })
         )
     }
     handleComplete = () =>{
-        const result = this.state.todoListData.filter(ele => ele.isCompleted);
-        let Data = [...this.state.todoListData];
-        for (let d of Data){ d["display"] = false; }
-        for (let d of result){ d["display"] = true; }
         this.setState(
-            () =>({todoListData: Data})
+            () =>({ filter: "Complete" })
         )
     }
     handleActive = () =>{
-        const result = this.state.todoListData.filter(ele => !ele.isCompleted);
-        let Data = [...this.state.todoListData];
-        for (let d of Data){ d["display"] = false; }
-        for (let d of result){ d["display"] = true; }
         this.setState( 
-            () =>({todoListData: Data})
+            () =>({ filter: "Active" })
         )
     }
     handleClear = () =>{
@@ -94,6 +81,19 @@ class section extends React.Component {
         )
     }
     render(){
+        let _list;
+        if(this.state.filter=="Complete"){
+            _list = this.state.todoListData.filter(e=>e["isCompleted"]).map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
+            check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>)) 
+        }
+        else if(this.state.filter=="Active"){
+            _list = this.state.todoListData.filter(e=>!e["isCompleted"]).map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
+            check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>)) 
+        }
+        else{
+            _list = this.state.todoListData.map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
+            check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>)) 
+        }
         return (
             <>
             <section className="todo-app__main">
@@ -101,21 +101,20 @@ class section extends React.Component {
                     placeholder="What needs to be done?" 
                     onKeyUp={this.handleEnter}/>
                 <ul className="todo-app__list" id = "todo-list">
-                    {this.state.todoListData.filter(e=>e["display"]).map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
-                    check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>))}
+                    {_list}
                 </ul>
             </section>
-            <footer className="todo-app__footer" id="todo-footer">
+            <footer className="todo-app__footer" id="todo-footer" style={{display : this.state.todoListData.length===0 ? "none" : "flex"}}>
                 <div id="todo-count" className="todo-app__total">
-                    {this.state.todoListData.filter(e=> !e["isCompleted"]).length} left
+                    {this.state.todoListData.filter(e=> !e["isCompleted"]).length} left, {this.state.todoListData.filter(e=> e["isCompleted"]).length} completed
                 </div>
                 <ul className="todo-app__view-buttons">
                     <button className="button" onClick={this.handleAll}>All</button>
                     <button className="button" onClick={this.handleActive}>Active</button>
                     <button className="button" onClick={this.handleComplete}>Completed</button>
                 </ul>
-                <div className="todo-app__clean">
-                    <button className="button" onClick={this.handleClear}>Clear completed</button>
+                <div className="todo-app__clean" >
+                    <button className="button" onClick={this.handleClear} style={{visibility : this.state.todoListData.filter(e=> e["isCompleted"]).length===0 ? "hidden" : "visible"}}>Clear completed</button>
                 </div>
             </footer>
             </>
