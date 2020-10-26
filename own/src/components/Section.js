@@ -60,33 +60,29 @@ class section extends React.Component {
             })
         )
     }
-    handleAll = () =>{
-        this.setState(
-            () =>({ filter: "All" })
-        )
-    }
-    handleComplete = () =>{
-        this.setState(
-            () =>({ filter: "Complete" })
-        )
-    }
-    handleActive = () =>{
-        this.setState( 
-            () =>({ filter: "Active" })
-        )
-    }
+    handleAll = () =>{ this.setState( () =>({ filter: "All" })) }
+    handleComplete = () =>{ this.setState( () =>({ filter: "Complete" })) }
+    handleActive = () =>{ this.setState( () =>({ filter: "Active" })) }
     handleClear = () =>{
         this.setState(
             (state) =>({todoListData: state.todoListData.filter( i => !i["isCompleted"])})
         )
     }
     render(){
+        const _style = {
+            border: 'none',padding: '5px',fontSize: '0.8em',fontWeight: 'inherit',
+            borderRadius: '5px',cursor: 'pointer'
+        }
+        const click_style = {
+            border: '',borderColor: 'gray',backgroundColor: 'rgb(3, 241, 170)',padding: '5px',
+            fontSize: '0.8em',fontWeight: 'inherit',borderRadius: '5px', cursor: 'pointer', 
+        }
         let _list;
-        if(this.state.filter=="Complete"){
+        if(this.state.filter==="Complete"){
             _list = this.state.todoListData.filter(e=>e["isCompleted"]).map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
             check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>)) 
         }
-        else if(this.state.filter=="Active"){
+        else if(this.state.filter==="Active"){
             _list = this.state.todoListData.filter(e=>!e["isCompleted"]).map( e => (<NewItem name={e["name"]} id={e["id"]} key={e["id"]} 
             check={this.handleCheck} cross={this.handleCross} isCompleted={e["isCompleted"]}/>)) 
         }
@@ -109,9 +105,9 @@ class section extends React.Component {
                     {this.state.todoListData.filter(e=> !e["isCompleted"]).length} left, {this.state.todoListData.filter(e=> e["isCompleted"]).length} completed
                 </div>
                 <ul className="todo-app__view-buttons">
-                    <button className="button" onClick={this.handleAll}>All</button>
-                    <button className="button" onClick={this.handleActive}>Active</button>
-                    <button className="button" onClick={this.handleComplete}>Completed</button>
+                    <button onClick={this.handleAll} style={this.state.filter==="All" ? click_style : _style}>All</button>
+                    <button onClick={this.handleActive} style={this.state.filter==="Active" ? click_style : _style}>Active</button>
+                    <button onClick={this.handleComplete} style={this.state.filter==="Complete" ? click_style : _style}>Completed</button>
                 </ul>
                 <div className="todo-app__clean" >
                     <button className="button" onClick={this.handleClear} style={{visibility : this.state.todoListData.filter(e=> e["isCompleted"]).length===0 ? "hidden" : "visible"}}>Clear completed</button>
