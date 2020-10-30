@@ -10,19 +10,17 @@ function CalcApp(props) {
   const [isOp, setIsOp] = useState(false)
   const storeisOp = (tf) => setIsOp(tf)
   const [show, setShow] = useState(0)
-  const [oper, setOper] = useState('None')
-  const [buffer, setBuffer] = useState(0)
-  const [eqoper, seteqOper] = useState('None')
-  const [eqval, seteqVal] = useState('None')
-  const storeOper = (op) => setOper(op)
-  const storeeqOper = (op) => seteqOper(op)
-  const storeBuffer = (buf) => setBuffer(buf)
-  const storeEqVal = (buf) => seteqVal(buf)
   const resetShow = () => setShow(0 * show)
   const storeValShow = (e) => setShow(10 * show + e)
   const EqualShow = (e) => setShow(e)
-  
-  let answer
+  const [oper, setOper] = useState('None')
+  const storeOper = (op) => setOper(op)
+  const [buffer, setBuffer] = useState(0)
+  const storeBuffer = (buf) => setBuffer(buf)
+  const [eqoper, seteqOper] = useState('None')
+  const storeeqOper = (op) => seteqOper(op)
+  const [eqval, seteqVal] = useState('None')
+  const storeEqVal = (buf) => seteqVal(buf)
 
   function resetState() {
     isfirstClkop(false)
@@ -73,7 +71,10 @@ function CalcApp(props) {
       }
       else {
         if(_op==="="){
-          result = Calculate(eqoper,show,eqval)
+          if(eqoper!=="None")
+            result = Calculate(eqoper,show,eqval)
+          else 
+            result = buffer
           value_buffer = buffer
           value_show = result
         }
@@ -103,7 +104,7 @@ function CalcApp(props) {
     console.warn('This function is not implemented yet.');
   }
 
-  answer = firstclkop ? buffer : show
+  let answer = firstclkop ? buffer : show
   return (
     <div className="calc-app">
       <div className="calc-container">
