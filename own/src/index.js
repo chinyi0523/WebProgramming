@@ -6,4 +6,4 @@ import './reset.css';
 import CalcApp from './containers/CalcApp';
 
 // eslint
-ReactDOM.render(<CalcApp />, document.getElementById('root'));
+ReactDOM.render(<CalcApp/>, document.getElementById('root'));
