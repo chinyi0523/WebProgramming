@@ -50,7 +50,6 @@ function CalcApp(props) {
     if (prev_op === "None") {
       isfirstClkop(true)
       storeBuffer(show) //put in buffer
-      resetShow() //reset
     }
     else {
       if (prev_op !== "=") {
@@ -61,12 +60,18 @@ function CalcApp(props) {
           value_eq = show
           op_eq = prev_op
         }
-        if(isOp&&_op==='='){
+        else if(isOp&&_op==='='){
           result = Calculate(oper,buffer,buffer)
           value_eq = buffer
           op_eq = prev_op
           value_buffer = buffer
           value_show = result
+        }
+        else{
+          value_eq = buffer
+          op_eq = prev_op
+          value_buffer = buffer
+          value_show = show
         }
       }
       else {
