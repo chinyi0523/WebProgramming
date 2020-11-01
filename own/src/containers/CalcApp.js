@@ -99,10 +99,25 @@ function CalcApp(props) {
     storeisOp(true)
   }
   function Calculate(_oper,_a,_b) {
-    if (_oper === "÷") return _a / _b
-    else if (_oper === "×") return _a * _b
-    else if (_oper === "+") return _a + _b
-    else if (_oper === "-") return _a - _b
+    let ans
+    if (_oper === "÷") ans = _a / _b
+    else if (_oper === "×") ans = _a * _b
+    else if (_oper === "+") ans = _a + _b
+    else if (_oper === "-") ans = _a - _b
+    let ans_string = String(ans)
+    let n = ans_string.indexOf(".");
+    if(Math.abs(ans)>=100000000) {
+      if(ans>0) ans = ans.toExponential(5);
+      else ans = ans.toExponential(4);
+    }
+    else if(Math.abs(ans)<=0.00000001){
+      if(ans>0) ans = ans.toExponential(5);
+      else ans = ans.toExponential(4);
+    }
+    else if(ans_string.length>10)
+      ans=ans.toFixed(10-n)
+    
+    return ans
   }
   
   function showNotImplemented() {
