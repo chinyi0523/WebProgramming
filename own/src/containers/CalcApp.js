@@ -10,7 +10,7 @@ function CalcApp(props) {
   const [isOp, setIsOp] = useState(false)
   const storeisOp = (tf) => setIsOp(tf)
   const [show, setShow] = useState(0)
-  const resetShow = () => setShow(0 * show)
+  const resetShow = () => setShow(0)
   const storeValShow = (e) => setShow(10 * show + e)
   const EqualShow = (e) => setShow(e)
   const [oper, setOper] = useState('None')
@@ -106,7 +106,8 @@ function CalcApp(props) {
     else if (_oper === "-") ans = _a - _b
     let ans_string = String(ans)
     let n = ans_string.indexOf(".");
-    if(Math.abs(ans)>=100000000) {
+    if(ans===0){ ans = ans}
+    else if(Math.abs(ans)>=100000000) {
       if(ans>0) ans = ans.toExponential(5);
       else ans = ans.toExponential(4);
     }
