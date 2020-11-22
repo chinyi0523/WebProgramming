@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { guess, startGame, restart } from './axios'
-
+import githubaccept from "./githubaccept.jpg";
 function App() {
   const [hasStarted, setHasStarted] = useState(false)
   const [hasWon, setHasWon] = useState(false)
@@ -25,7 +25,7 @@ function App() {
     <div>
       {hasWon ? (
         <>
-          <p>you won! the number was {number}.</p>
+          <p>You won! The number was {number}.<br/><br/><br/>How long you spent on this HW?<br/><br/>I guess you spent more time on accepting HW5!!<br/><br/><img src={githubaccept} width="300px" alt="GitHub Accept Distribution"></img></p>
           <button
             onClick={async () => {
               await restart()
@@ -35,7 +35,7 @@ function App() {
               setNumber('')
             }}
           >
-            restart
+            Restart
           </button>
         </>
       ) : (
@@ -48,10 +48,17 @@ function App() {
           <button
             // TODO: use async/await to call guess(number),
             // process the response to set the proper state values
-            onClick={}
+            onClick={async () => {
+              const message = await guess(number)
+              //message.catch(console.log("asdfg"))
+              setStatus(message)
+              if (message === "Correct"){
+                setHasWon(true)
+              }
+            }}
             disabled={!number}
           >
-            guess!
+            Guess!
           </button>
           <p>{status}</p>
         </>
