@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Image Viewer</title>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="styles.css"
+        />
+    </head>
+    <body>
+        <!-- Try to implement an HTML that looks like the reference example:
+        ./images/screenshot.png  -->
+        <!-- Please use the class names and IDs as defined in styles.css
+         so that the outlook can be the same as the reference. -->
+        <div class="image-viewer__container">
+            <div class="image-viewer__title">
+                <!-- <p>Image Viewer</p> -->
+                <img id="onf-logo" src="./images/onf-logo.png" alt="onf-logo" />
+            </div>
+            <div class="image-viewer__main">
+                <div id="carousel-left" class="carousel disabled">
+                    <button
+                        id="btn-left"
+                        class="image-viewer__button"
+                        onclick="handleButtonOnClick(false)"
+                        disabled
+                    >
+                        <img src="./images/back.png" alt="left-button" />
+                    </button>
+                </div>
+                <div id="main-container">
+                    <img
+                        id="display"
+                        src="./images/loading.gif"
+                        alt="main-pic"
+                        onload="handleChangePic()"
+                    />
+                    <div class="image-viewer__display-source-wrapper">
+                        <a id="source" href="https://imgur.com/8NNyX9d.jpg">
+                            Source:https://imgur.com/8NNyX9d.jpg
+                        </a>
+                    </div>
+                </div>
+                <div id="carousel-right" class="carousel">
+                    <button
+                        id="btn-right"
+                        class="image-viewer__button"
+                        onclick="handleButtonOnClick(true)"
+                    >
+                        <img src="./images/next.png" alt="right-button" />
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
